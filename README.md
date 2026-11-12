@@ -23,12 +23,22 @@ commit, and the site rebuilds by itself in a couple of minutes.
   organisation. Private repositories are never shown.
 - **Publications**: `scripts/update_publications.py` downloads the publication record of every
   collaborator from OpenAlex (by ORCID) and keeps the papers whose funding information contains a
-  grant reference from `data/projects.yml` (OpenAlex first, Crossref as a second source). It relies
-  on the funding metadata registered by the journals, so a paper that only mentions the grant in the
-  acknowledgements text can be missed: add it by DOI in `data/publications_overrides.yml`.
+  grant reference from `data/projects.yml` (OpenAlex first, Crossref as a second source). It also
+  runs an OpenAlex full-text search for each grant reference, which catches papers that only mention
+  the grant in the acknowledgements. Coverage is good but not guaranteed: if a paper is missing, add
+  it by DOI in `data/publications_overrides.yml`.
 - A GitHub Action (`.github/workflows/site.yml`) runs both scripts, commits any change in `data/`,
   builds the site and deploys it to GitHub Pages: on every push, every Monday, and on demand
   (Actions → *Update data, build and deploy* → *Run workflow*).
+
+## Things to know
+
+- GitHub Pages must be set to **Source: GitHub Actions** (Settings → Pages).
+- Optional but recommended: a free OpenAlex API key stored as the repository secret
+  `OPENALEX_API_KEY` (Settings → Secrets and variables → Actions). Without it the publications
+  update may occasionally be rate-limited; the site is then built from the last saved data.
+- GitHub pauses scheduled workflows after 60 days without any activity in the repository. If the
+  weekly update stops, re-enable it in the Actions tab (or just run it by hand).
 
 ## Run locally
 

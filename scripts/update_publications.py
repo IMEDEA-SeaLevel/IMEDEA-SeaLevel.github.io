@@ -4,7 +4,8 @@
 For every collaborator in data/collaborators.yml the script downloads their
 publication record from OpenAlex (by ORCID) and keeps the papers whose funding
 information contains one of the grant references in data/projects.yml.
-Crossref is used as a second source of funding information. Manual additions
+Crossref is used as a second source of funding information, and the OpenAlex
+full-text search catches papers that only cite the grant in the acknowledgements. Manual additions
 and removals are read from data/publications_overrides.yml.
 
 Usage:  python scripts/update_publications.py [--verbose]
@@ -144,6 +145,25 @@ def main():
             found[w["id"]] = (w, ids)
             if VERBOSE:
                 print("  +", sorted(ids), doi or w["id"], "|", (w.get("title") or "")[:60])
+
+    # 2b. Full-text search: papers that cite the grant in the acknowledgements
+    #     text even when the journal registered no funding metadata.
+    orcids = sorted(collab_orcids)
+    for p in projects:
+        for grant in p.get("grants") or []:
+            for i in range(0, len(orcids), 40):
+                flt = f'fulltext.search:"{grant}",author.orcid:{"|".join(orcids[i:i + 40])},from_publication_date:{since}'
+                try:
+                    d = get_json(oa_url({"filter": flt, "per-page": 200}))
+                except Exception as e:
+                    print(f"WARNING: full-text search failed for {grant}: {e}")
+                    continue
+                for w in (d or {}).get("results", []):
+                    if w["id"] not in found:
+                        found[w["id"]] = (w, set())
+                        if VERBOSE:
+                            print("  + full text", p["id"], norm_doi(w.get("doi")), "|", (w.get("title") or "")[:60])
+                    found[w["id"]][1].add(p["id"])
 
     pubs = [record(w, ids, collab_orcids) for w, ids in found.values()]
 

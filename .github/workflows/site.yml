@@ -30,9 +30,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           OPENALEX_API_KEY: ${{ secrets.OPENALEX_API_KEY }}
+        # If a data source is down the site is still built from the last saved data.
         run: |
-          python scripts/update_repositories.py
-          python scripts/update_publications.py
+          python scripts/update_repositories.py || echo "::warning::Could not update repositories"
+          python scripts/update_publications.py || echo "::warning::Could not update publications"
 
       - name: Commit data changes
         run: |

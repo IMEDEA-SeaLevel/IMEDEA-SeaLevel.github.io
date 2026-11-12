@@ -35,7 +35,7 @@ def main():
         if r.get("private") is not False or r.get("visibility", "public") != "public":
             continue
         name = r["name"]
-        if name.lower().endswith(".github.io") or name == ".github" or r.get("fork"):
+        if name.lower().endswith(".github.io") or name == ".github":
             continue
         out.append(
             {
