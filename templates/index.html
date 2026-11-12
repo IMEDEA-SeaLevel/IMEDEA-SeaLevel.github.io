@@ -2,16 +2,8 @@
 {% block main %}
 <section class="hero">
   <p class="eyebrow">IMEDEA · CSIC-UIB</p>
-  <h1>{{ site.tagline }}</h1>
-  <p class="lede">{{ site.description }}</p>
-  <svg class="tide" viewBox="0 0 1000 70" preserveAspectRatio="none" aria-hidden="true">
-    <path d="M0 40 C40 10 80 10 120 40 S200 70 240 40 320 14 360 36 440 62 480 38 560 4 600 30 680 66 720 42 800 18 840 36 920 58 1000 30" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
-    <path d="M0 52 H1000" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity=".5" vector-effect="non-scaling-stroke"/>
-  </svg>
+  <h1>Projects</h1>
 </section>
-
-
-<h2>Projects</h2>
 {% for p in projects %}
 <article class="project" id="{{ p.id }}">
   <div class="side">
@@ -32,10 +24,9 @@
       <h4>Impact</h4>
       {% if p.n_pubs %}
       <ul class="stats">
-        <li><b>{{ p.n_pubs }}</b><span>paper{{ '' if p.n_pubs == 1 else 's' }}</span></li>
-        <li><b>{{ p.citations }}</b><span>citation{{ '' if p.citations == 1 else 's' }}</span></li>
-        <li><b>{{ p.n_oa }}/{{ p.n_pubs }}</b><span>open access</span></li>
-        <li><b>{{ p.n_venues }}</b><span>journal{{ '' if p.n_venues == 1 else 's' }}</span></li>
+        <li><b>{{ p.n_pubs }}</b> <span>paper{{ '' if p.n_pubs == 1 else 's' }}</span></li>
+        <li><b>{{ p.citations }}</b> <span>citation{{ '' if p.citations == 1 else 's' }}</span></li>
+        <li><b>{{ p.n_venues }}</b> <span>journal{{ '' if p.n_venues == 1 else 's' }}</span></li>
       </ul>
       <details>
         <summary>Papers published</summary>
