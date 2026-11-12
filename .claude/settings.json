@@ -1,0 +1,29 @@
+{
+  "permissions": {
+    "deny": [
+      "Bash(gh repo create:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(gh repo edit:*)",
+      "Bash(gh repo rename:*)",
+      "Bash(gh repo archive:*)",
+      "Bash(gh repo unarchive:*)",
+      "Bash(gh repo fork:*)",
+      "Bash(gh repo clone:*)",
+      "Bash(gh repo sync:*)",
+      "Bash(gh repo deploy-key:*)",
+      "Bash(gh secret:*)",
+      "Bash(gh variable:*)",
+      "Bash(gh auth login:*)",
+      "Bash(gh auth refresh:*)",
+      "Bash(gh auth token:*)",
+      "Bash(gh org:*)",
+      "Bash(gh api -X:*)",
+      "Bash(gh api --method:*)",
+      "Bash(git push --force:*)",
+      "Bash(git push -f:*)",
+      "Bash(git remote add:*)",
+      "Bash(git remote set-url:*)",
+      "Bash(git clone:*)"
+    ]
+  }
+}
