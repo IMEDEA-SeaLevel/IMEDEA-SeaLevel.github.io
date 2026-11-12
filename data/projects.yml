@@ -8,6 +8,9 @@
 #   grants      list of grant references. The publications tool looks for these
 #               strings in the funding information of the collaborators' papers
 #               (case, spaces and hyphens do not matter). Add every variant.
+#   search_terms (optional) extra words searched in the full text of the papers,
+#               e.g. a project acronym. Only use words that are unique to the
+#               project, otherwise unrelated papers will be listed.
 #   funder      funding body, as it should be shown
 #   start/end   YYYY-MM (or just YYYY). Status (ongoing / completed) is
 #               computed from these dates automatically.
@@ -56,6 +59,35 @@
   start: 2022
   end: 2025
   pis: [Marta Marcos]
+  url:
+  logo:
+  description:
+
+- id: mocca
+  acronym: MOCCA
+  title: Mediterranean sheltered beach morphodynamics in the face of climate change
+  grants:
+    - RTI2018-093941-B-C31
+  funder: Agencia Estatal de Investigación (AEI)
+  start: 2019
+  end: 2021
+  pis: []
+  url:
+  logo:
+  description:
+
+- id: inseaption
+  acronym: INSeaPTION
+  title: Integrating sea-level projections in climate services for coastal adaptation
+  grants:
+    - PCIN-2017-038
+    - ANR-17-ERA4-0002
+  search_terms:
+    - INSeaPTION
+  funder: ERA4CS (European Research Area for Climate Services)
+  start: 2017
+  end: 2021
+  pis: []
   url:
   logo:
   description:

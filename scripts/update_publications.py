@@ -166,7 +166,7 @@ def main():
     #     text even when the journal registered no funding metadata.
     orcids = sorted(collab_orcids)
     for p in projects:
-        for grant in p.get("grants") or []:
+        for grant in (p.get("grants") or []) + (p.get("search_terms") or []):
             for i in range(0, len(orcids), 40):
                 flt = f'fulltext.search:"{grant}",author.orcid:{"|".join(orcids[i:i + 40])},from_publication_date:{since}'
                 try:
@@ -181,7 +181,9 @@ def main():
                             print("  + full text", p["id"], norm_doi(w.get("doi")), "|", (w.get("title") or "")[:60])
                     found[w["id"]][1].add(p["id"])
 
-    pubs = [record(w, ids, collab_orcids) for w, ids in found.values()]
+    # Corrections, retractions and the like are not publications of their own.
+    skip_types = {"erratum", "retraction", "paratext", "peer-review", "editorial"}
+    pubs = [record(w, ids, collab_orcids) for w, ids in found.values() if w.get("type") not in skip_types]
 
     # 3. Manual additions.
     for inc in overrides.get("include") or []:

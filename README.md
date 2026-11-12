@@ -24,7 +24,8 @@ commit, and the site rebuilds by itself in a couple of minutes.
 - **Publications**: `scripts/update_publications.py` downloads the publication record of every
   collaborator from OpenAlex (by ORCID) and keeps the papers whose funding information contains a
   grant reference from `data/projects.yml` (OpenAlex first, Crossref as a second source). It also
-  runs an OpenAlex full-text search for each grant reference, which catches papers that only mention
+  runs an OpenAlex full-text search for each grant reference (and for the optional `search_terms`
+  of a project), which catches papers that only mention
   the grant in the acknowledgements. Coverage is good but not guaranteed: if a paper is missing, add
   it by DOI in `data/publications_overrides.yml`.
 - A GitHub Action (`.github/workflows/site.yml`) runs both scripts, commits any change in `data/`,
