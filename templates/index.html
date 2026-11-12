@@ -10,30 +10,47 @@
   </svg>
 </section>
 
-<h2>Repositories</h2>
-{% if repositories %}
-<p class="count">{{ repositories|length }} public repositor{{ 'y' if repositories|length == 1 else 'ies' }} on GitHub</p>
-<div class="grid">
-  {% for r in repositories %}
-  <article class="card">
-    <h3><a href="{{ r.url }}">{{ r.name }}</a>{% if r.archived %} <span class="status">Archived</span>{% endif %}</h3>
-    {% if r.description %}<p>{{ r.description }}</p>{% endif %}
-    {% if r.topics %}<ul class="tags">{% for t in r.topics %}<li class="tag">{{ t }}</li>{% endfor %}</ul>{% endif %}
-    <div class="meta">
-      {% if r.language %}<span>{{ r.language }}</span>{% endif %}
-      {% if r.license and r.license != 'NOASSERTION' %}<span>{{ r.license }}</span>{% endif %}
-      {% if r.stars %}<span>★ {{ r.stars }}</span>{% endif %}
-      {% if r.updated %}<span>updated {{ r.updated }}</span>{% endif %}
-      {% if r.homepage %}<a href="{{ r.homepage }}">website</a>{% endif %}
-    </div>
-  </article>
-  {% endfor %}
-</div>
-{% else %}
-<div class="empty">
-  <strong>No public repositories yet</strong>
-  Code will be listed here as soon as it is released.
-  <br><a class="btn" href="https://github.com/{{ site.github_org }}">github.com/{{ site.github_org }}</a>
-</div>
-{% endif %}
+
+<h2>Projects</h2>
+{% for p in projects %}
+<article class="project" id="{{ p.id }}">
+  <div class="side">
+    {% if p.logo %}<img src="static/img/{{ p.logo }}" alt="{{ p.acronym }} logo">{% else %}<div class="mark" aria-hidden="true">{{ p.acronym[:2] }}</div>{% endif %}
+    <span>{{ p.period }}</span>
+  </div>
+  <div>
+    <h3>{{ p.acronym }}<span class="status {{ 'on' if p.status != 'Completed' }}">{{ p.status }}</span></h3>
+    <p class="full">{{ p.title }}</p>
+    {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+    <dl class="facts">
+      {% if p.grants %}<dt>Reference</dt><dd class="ref">{{ p.grants|join(' · ') }}</dd>{% endif %}
+      {% if p.funder %}<dt>Funding</dt><dd>{{ p.funder }}</dd>{% endif %}
+      {% if p.pis %}<dt>{{ 'PI' if p.pis|length == 1 else 'PIs' }}</dt><dd>{{ p.pis|join(', ') }}</dd>{% endif %}
+      {% if p.url %}<dt>Website</dt><dd><a href="{{ p.url }}">{{ p.url }}</a></dd>{% endif %}
+    </dl>
+    <section class="impact" aria-label="Impact of {{ p.acronym }}">
+      <h4>Impact</h4>
+      {% if p.n_pubs %}
+      <ul class="stats">
+        <li><b>{{ p.n_pubs }}</b><span>paper{{ '' if p.n_pubs == 1 else 's' }}</span></li>
+        <li><b>{{ p.citations }}</b><span>citation{{ '' if p.citations == 1 else 's' }}</span></li>
+        <li><b>{{ p.n_oa }}/{{ p.n_pubs }}</b><span>open access</span></li>
+        <li><b>{{ p.n_venues }}</b><span>journal{{ '' if p.n_venues == 1 else 's' }}</span></li>
+      </ul>
+      <details>
+        <summary>Papers published</summary>
+        <ol class="mini">
+          {% for pub in p.pubs %}
+          <li><a href="{{ pub.url }}">{{ pub.title }}</a> <span class="mini-meta">{% if pub.venue %}<i>{{ pub.venue }}</i>, {% endif %}{{ pub.year }}{% if pub.type == 'preprint' %} · preprint{% endif %} · {{ pub.citations or 0 }} citation{{ '' if pub.citations == 1 else 's' }}</span></li>
+          {% endfor %}
+        </ol>
+        <a class="btn" href="publications.html#{{ p.id }}">Full details →</a>
+      </details>
+      {% else %}
+      <p class="none">No papers yet{% if p.status != 'Completed' %} — they will appear here as they are published{% endif %}.</p>
+      {% endif %}
+    </section>
+  </div>
+</article>
+{% endfor %}
 {% endblock %}

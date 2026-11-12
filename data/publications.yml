@@ -20,6 +20,7 @@
   url: https://doi.org/10.1016/j.patcog.2026.114744
   type: article
   open_access: true
+  citations: 3
   projects:
   - dricoex
 - title: 'MAROR: a multipoint autoregressive network for forcing-driven, uncertainty-calibrated reconstruction
@@ -42,6 +43,7 @@
   url: https://doi.org/10.5194/egusphere-2026-5073
   type: preprint
   open_access: true
+  citations: 1
   projects:
   - detect
 - title: Subsidence more than doubles sea-level rise today along densely populated coasts
@@ -67,6 +69,7 @@
   url: https://doi.org/10.1038/s41467-026-72293-z
   type: article
   open_access: true
+  citations: 7
   projects:
   - detect
 - title: 'Expanding the Coastal Observation Frontier: SWOT Reveals the Spatial Footprint of Storm Surges'
@@ -85,6 +88,7 @@
   url: https://doi.org/10.1029/2025gl117299
   type: article
   open_access: true
+  citations: 7
   projects:
   - dricoex
 - title: Constraining Extreme Storm Surges Along the European Coasts From a Large Ensemble of Climate
@@ -106,6 +110,7 @@
   url: https://doi.org/10.1029/2025jc022863
   type: article
   open_access: true
+  citations: 3
   projects:
   - detect
   - dricoex
@@ -128,6 +133,7 @@
   url: https://doi.org/10.1073/pnas.2413505122
   type: article
   open_access: true
+  citations: 51
   projects:
   - detect
   - dricoex
@@ -149,6 +155,7 @@
   url: https://doi.org/10.1029/2024ef004992
   type: article
   open_access: true
+  citations: 11
   projects:
   - detect
 - title: Storm Daniel fueled by anomalously high sea surface temperatures in the Mediterranean
@@ -167,6 +174,7 @@
   url: https://doi.org/10.1038/s41612-024-00872-2
   type: article
   open_access: true
+  citations: 30
   projects:
   - detect
   - dricoex
@@ -189,6 +197,7 @@
   url: https://doi.org/10.1038/s41561-023-01357-2
   type: article
   open_access: true
+  citations: 104
   projects:
   - detect
 - title: Shoreline response to sea-level rise according to equilibrium beach profiles
@@ -209,6 +218,7 @@
   url: https://doi.org/10.1038/s41598-023-42672-3
   type: article
   open_access: true
+  citations: 12
   projects:
   - detect
 - title: Coastal extreme sea levels in the Caribbean Sea induced by tropical cyclones
@@ -229,5 +239,6 @@
   url: https://doi.org/10.5194/nhess-23-587-2023
   type: article
   open_access: true
+  citations: 16
   projects:
   - detect

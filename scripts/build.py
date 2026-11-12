@@ -50,7 +50,12 @@ def main():
         else:
             p["status"] = "Ongoing"
         p["period"] = " – ".join(x for x in [fmt(p.get("start")), fmt(p.get("end"))] if x)
-        p["n_pubs"] = sum(1 for pub in publications if p["id"] in (pub.get("projects") or []))
+        mine = [pub for pub in publications if p["id"] in (pub.get("projects") or [])]
+        p["pubs"] = mine
+        p["n_pubs"] = len(mine)
+        p["citations"] = sum(pub.get("citations") or 0 for pub in mine)
+        p["n_oa"] = sum(1 for pub in mine if pub.get("open_access"))
+        p["n_venues"] = len({pub.get("venue") for pub in mine if pub.get("venue")})
         p["_sort"] = (p["status"] == "Completed", tuple(-x for x in (start or (0, 0))))
     projects.sort(key=lambda p: p["_sort"])
 
@@ -81,6 +86,7 @@ def main():
         repositories=repositories,
         by_year=by_year,
         acronyms={p["id"]: p["acronym"] for p in projects},
+        total_citations=sum(pub.get("citations") or 0 for pub in publications),
         today=today.strftime("%-d %B %Y"),
     )
     if OUT.exists():
@@ -88,7 +94,7 @@ def main():
     OUT.mkdir()
     shutil.copytree(ROOT / "static", OUT / "static")
     (OUT / ".nojekyll").write_text("")
-    for page, tpl in [("repositories", "index.html"), ("projects", "projects.html"), ("publications", "publications.html")]:
+    for page, tpl in [("projects", "index.html"), ("publications", "publications.html"), ("repositories", "repositories.html")]:
         html = env.get_template(tpl).render(page=page, **ctx)
         (OUT / tpl).write_text(html, encoding="utf-8")
     print(f"Built {OUT} — {len(repositories)} repositories, {len(projects)} projects, {len(publications)} publications")

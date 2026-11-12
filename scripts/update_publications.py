@@ -101,6 +101,7 @@ def record(work, project_ids, collab_orcids):
         "url": work.get("doi") or loc.get("landing_page_url") or work.get("id"),
         "type": work.get("type") or "",
         "open_access": bool((work.get("open_access") or {}).get("is_oa")),
+        "citations": int(work.get("cited_by_count") or 0),
         "projects": sorted(project_ids),
     }
 

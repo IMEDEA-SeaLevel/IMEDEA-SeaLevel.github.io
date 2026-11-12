@@ -1,7 +1,7 @@
 # IMEDEA Sea Level — website
 
-Source of <https://imedea-sealevel.github.io>. Three pages: **Repositories** (home),
-**Projects** and **Publications**. Everything is generated from the files in `data/`.
+Source of <https://imedea-sealevel.github.io>. Three pages: **Projects** (home, with the
+impact of each project), **Publications** and **Repositories**. Everything is generated from the files in `data/`.
 
 ## Everyday edits
 
