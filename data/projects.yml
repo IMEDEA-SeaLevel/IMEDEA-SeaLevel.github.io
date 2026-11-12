@@ -1,0 +1,61 @@
+# ---------------------------------------------------------------------------
+# PROJECTS — edit this file to add / change projects.
+#
+# To add a project, copy one block and fill it in. Fields:
+#   id          short unique name, lowercase (used to tag publications)
+#   acronym     name shown on the site
+#   title       full title
+#   grants      list of grant references. The publications tool looks for these
+#               strings in the funding information of the collaborators' papers
+#               (case, spaces and hyphens do not matter). Add every variant.
+#   funder      funding body, as it should be shown
+#   start/end   YYYY-MM (or just YYYY). Status (ongoing / completed) is
+#               computed from these dates automatically.
+#   pis         principal investigators
+#   url         project website (leave empty if none)
+#   logo        file in static/img/ (leave empty if none)
+#   description one or two sentences (leave empty if none)
+#
+# Projects are shown in the order: ongoing first, then most recent first.
+# ---------------------------------------------------------------------------
+
+- id: sealine
+  acronym: SeaLine
+  title: >-
+    Towards a better understanding of coastal extreme sea levels and their
+    drivers in a warming climate
+  grants:
+    - PID2025-171905OB-I00
+  funder: MICIU/AEI/10.13039/501100011033 and FEDER, UE
+  start: 2026-09
+  end: 2029-08
+  pis: [Ángel Amores, Marta Marcos]
+  url:
+  logo: sealine.png
+  description:
+
+- id: dricoex
+  acronym: DRICOEX
+  title: Disentangling the drivers of European coastal sea-level extremes
+  grants:
+    - CNS2022-135532
+  funder: MCIN/AEI
+  start: 2022
+  end: 2025
+  pis: [Ángel Amores]
+  url:
+  logo:
+  description:
+
+- id: detect
+  acronym: DETECT
+  title: Decadal predictability of coastal extreme sea levels under climate change
+  grants:
+    - PID2021-124085OB-I00
+  funder: MCIN/AEI
+  start: 2022
+  end: 2025
+  pis: []
+  url:
+  logo:
+  description:

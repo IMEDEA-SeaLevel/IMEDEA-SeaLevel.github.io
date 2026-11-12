@@ -1,0 +1,16 @@
+# ---------------------------------------------------------------------------
+# MANUAL CORRECTIONS to the automatic publication list.
+# The publications tool reads this file and never modifies it.
+#
+# include: papers the tool misses (e.g. the journal did not register the
+#          funding). Give the DOI and the project id(s) from projects.yml.
+#            - doi: 10.1234/abcd
+#              projects: [sealine]
+#
+# exclude: papers the tool lists but should not be shown. Give the DOI.
+#            - 10.1234/abcd
+# ---------------------------------------------------------------------------
+
+include: []
+
+exclude: []

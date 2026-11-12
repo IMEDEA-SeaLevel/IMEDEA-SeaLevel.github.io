@@ -1,0 +1,16 @@
+# ---------------------------------------------------------------------------
+# COLLABORATORS — people whose publication records are scanned.
+#
+# To add someone, add a line with the name and the ORCID iD. On the next run
+# the publications tool will pick up every paper of theirs that acknowledges
+# one of the grants listed in projects.yml.
+# ---------------------------------------------------------------------------
+
+- name: Ángel Amores
+  orcid: 0000-0003-4139-1557
+
+- name: Marta Marcos
+  orcid: 0000-0001-9975-5013
+
+- name: Francisco M. Calafat
+  orcid: 0000-0002-7474-135X

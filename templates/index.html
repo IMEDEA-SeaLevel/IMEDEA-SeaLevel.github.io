@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block main %}
+<section class="hero">
+  <p class="eyebrow">IMEDEA · CSIC-UIB</p>
+  <h1>{{ site.tagline }}</h1>
+  <p class="lede">{{ site.description }}</p>
+  <svg class="tide" viewBox="0 0 1000 70" preserveAspectRatio="none" aria-hidden="true">
+    <path d="M0 40 C40 10 80 10 120 40 S200 70 240 40 320 14 360 36 440 62 480 38 560 4 600 30 680 66 720 42 800 18 840 36 920 58 1000 30" fill="none" stroke="currentColor" stroke-width="2" vector-effect="non-scaling-stroke"/>
+    <path d="M0 52 H1000" stroke="currentColor" stroke-width="1" stroke-dasharray="2 8" opacity=".5" vector-effect="non-scaling-stroke"/>
+  </svg>
+</section>
+
+<h2>Repositories</h2>
+{% if repositories %}
+<p class="count">{{ repositories|length }} public repositor{{ 'y' if repositories|length == 1 else 'ies' }} on GitHub</p>
+<div class="grid">
+  {% for r in repositories %}
+  <article class="card">
+    <h3><a href="{{ r.url }}">{{ r.name }}</a>{% if r.archived %} <span class="status">Archived</span>{% endif %}</h3>
+    {% if r.description %}<p>{{ r.description }}</p>{% endif %}
+    {% if r.topics %}<ul class="tags">{% for t in r.topics %}<li class="tag">{{ t }}</li>{% endfor %}</ul>{% endif %}
+    <div class="meta">
+      {% if r.language %}<span>{{ r.language }}</span>{% endif %}
+      {% if r.license and r.license != 'NOASSERTION' %}<span>{{ r.license }}</span>{% endif %}
+      {% if r.stars %}<span>★ {{ r.stars }}</span>{% endif %}
+      {% if r.updated %}<span>updated {{ r.updated }}</span>{% endif %}
+      {% if r.homepage %}<a href="{{ r.homepage }}">website</a>{% endif %}
+    </div>
+  </article>
+  {% endfor %}
+</div>
+{% else %}
+<div class="empty">
+  <strong>No public repositories yet</strong>
+  Code will be listed here as soon as it is released.
+  <br><a class="btn" href="https://github.com/{{ site.github_org }}">github.com/{{ site.github_org }}</a>
+</div>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="IMEDEA Sea Level">
+  <rect width="64" height="64" rx="14" fill="#0e2a3b"/>
+  <g stroke="#f4efe6" stroke-width="2" stroke-linecap="round" opacity=".45">
+    <path d="M14 14v36"/><path d="M14 20h5M14 32h7M14 44h5"/>
+  </g>
+  <path d="M10 40c5-9 9-9 14 0s9 9 14 0 9-9 16-2" fill="none" stroke="#f4efe6" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M10 27c5-7 9-7 14 0s9 7 14 0 9-7 16-1" fill="none" stroke="#ff7a4d" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

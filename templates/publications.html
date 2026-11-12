@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Publications · {{ site.title }}{% endblock %}
+{% block main %}
+<section class="hero">
+  <p class="eyebrow">Papers acknowledging our projects</p>
+  <h1>Publications</h1>
+  <p class="lede">Compiled automatically from the funding information of each paper. Last updated {{ today }}.</p>
+</section>
+{% if publications %}
+<div class="filters" role="group" aria-label="Filter by project">
+  <button type="button" data-filter="" aria-pressed="true">All · {{ publications|length }}</button>
+  {% for p in projects if p.n_pubs %}<button type="button" data-filter="{{ p.id }}" aria-pressed="false">{{ p.acronym }} · {{ p.n_pubs }}</button>{% endfor %}
+</div>
+{% for year, items in by_year %}
+<section class="yeargroup">
+  <h2 class="year">{{ year }}</h2>
+  <ol class="pubs">
+    {% for pub in items %}
+    <li data-projects="{{ pub.projects|join(' ') }}">
+      <p class="pub-title"><a href="{{ pub.url }}">{{ pub.title }}</a></p>
+      <p class="pub-authors">{% for a in pub.shown_authors %}{% if a.member %}<b>{{ a.name }}</b>{% else %}{{ a.name }}{% endif %}{{ ', ' if not loop.last }}{% endfor %}{% if pub.more_authors %}, … (+{{ pub.more_authors }}){% endif %}</p>
+      <p class="pub-venue">{% if pub.venue %}<i>{{ pub.venue }}</i>{% endif %}{% if pub.volume %}, {{ pub.volume }}{% endif %}{% if pub.pages %}, {{ pub.pages }}{% endif %}{% if pub.type == 'preprint' %} · preprint{% endif %}</p>
+      <div class="pub-foot">
+        {% for pid in pub.projects %}<a class="tag proj" href="projects.html#{{ pid }}">{{ acronyms[pid] or pid }}</a>{% endfor %}
+        {% if pub.open_access %}<span class="tag oa">open access</span>{% endif %}
+        {% if pub.doi %}<a class="doi" href="https://doi.org/{{ pub.doi }}">doi:{{ pub.doi }}</a>{% endif %}
+      </div>
+    </li>
+    {% endfor %}
+  </ol>
+</section>
+{% endfor %}
+{% else %}
+<div class="empty"><strong>No publications yet</strong>Papers will appear here automatically.</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+<script>
+(function(){
+  var btns=document.querySelectorAll('.filters button');
+  function apply(f){
+    btns.forEach(function(b){b.setAttribute('aria-pressed', String(b.dataset.filter===f));});
+    document.querySelectorAll('ol.pubs li').forEach(function(li){
+      li.hidden = !!f && li.dataset.projects.split(' ').indexOf(f)<0;
+    });
+    document.querySelectorAll('.yeargroup').forEach(function(s){
+      s.hidden = !s.querySelector('li:not([hidden])');
+    });
+  }
+  btns.forEach(function(b){b.addEventListener('click',function(){
+    history.replaceState(null,'',b.dataset.filter?'#'+b.dataset.filter:location.pathname);
+    apply(b.dataset.filter);
+  });});
+  var h=location.hash.slice(1);
+  if(h && document.querySelector('.filters button[data-filter="'+h+'"]')) apply(h);
+})();
+</script>
+{% endblock %}

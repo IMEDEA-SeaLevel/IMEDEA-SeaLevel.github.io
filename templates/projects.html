@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Projects · {{ site.title }}{% endblock %}
+{% block main %}
+<section class="hero">
+  <p class="eyebrow">Research projects</p>
+  <h1>Projects</h1>
+</section>
+{% for p in projects %}
+<article class="project" id="{{ p.id }}">
+  <div class="side">
+    {% if p.logo %}<img src="static/img/{{ p.logo }}" alt="{{ p.acronym }} logo">{% else %}<div class="mark" aria-hidden="true">{{ p.acronym[:2] }}</div>{% endif %}
+    <span>{{ p.period }}</span>
+  </div>
+  <div>
+    <h3>{{ p.acronym }}<span class="status {{ 'on' if p.status != 'Completed' }}">{{ p.status }}</span></h3>
+    <p class="full">{{ p.title }}</p>
+    {% if p.description %}<p>{{ p.description }}</p>{% endif %}
+    <dl class="facts">
+      {% if p.grants %}<dt>Reference</dt><dd class="ref">{{ p.grants|join(' · ') }}</dd>{% endif %}
+      {% if p.funder %}<dt>Funding</dt><dd>{{ p.funder }}</dd>{% endif %}
+      {% if p.pis %}<dt>{{ 'PI' if p.pis|length == 1 else 'PIs' }}</dt><dd>{{ p.pis|join(', ') }}</dd>{% endif %}
+      {% if p.url %}<dt>Website</dt><dd><a href="{{ p.url }}">{{ p.url }}</a></dd>{% endif %}
+    </dl>
+    {% if p.n_pubs %}<a class="btn" href="publications.html#{{ p.id }}">{{ p.n_pubs }} publication{{ '' if p.n_pubs == 1 else 's' }} →</a>{% endif %}
+  </div>
+</article>
+{% endfor %}
+{% endblock %}
