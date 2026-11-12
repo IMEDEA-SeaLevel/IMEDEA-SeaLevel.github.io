@@ -55,7 +55,7 @@ def main():
         p["n_pubs"] = len(mine)
         p["citations"] = sum(pub.get("citations") or 0 for pub in mine)
         p["n_oa"] = sum(1 for pub in mine if pub.get("open_access"))
-        p["n_venues"] = len({pub.get("venue") for pub in mine if pub.get("venue")})
+        p["n_venues"] = len({pub.get("venue") for pub in mine if pub.get("venue") and pub.get("type") != "preprint"})
         p["_sort"] = (p["status"] == "Completed", tuple(-x for x in (start or (0, 0))))
     projects.sort(key=lambda p: p["_sort"])
 
@@ -94,8 +94,17 @@ def main():
     OUT.mkdir()
     shutil.copytree(ROOT / "static", OUT / "static")
     (OUT / ".nojekyll").write_text("")
-    for page, tpl in [("projects", "index.html"), ("publications", "publications.html"), ("repositories", "repositories.html")]:
-        html = env.get_template(tpl).render(page=page, **ctx)
+    pages = [
+        ("projects", "index.html"),
+        ("publications", "publications.html"),
+        ("repositories", "repositories.html"),
+        ("", "404.html"),
+    ]
+    for page, tpl in pages:
+        # the 404 page can be served from any path, so it needs absolute links
+        root = "/" if tpl == "404.html" else "./"
+        canonical = "" if tpl == "index.html" else tpl
+        html = env.get_template(tpl).render(page=page, root=root, canonical=canonical, **ctx)
         (OUT / tpl).write_text(html, encoding="utf-8")
     print(f"Built {OUT} — {len(repositories)} repositories, {len(projects)} projects, {len(publications)} publications")
 

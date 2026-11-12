@@ -78,6 +78,18 @@ def title_key(t):
     return re.sub(r"[^a-z0-9]", "", (t or "").lower())
 
 
+def name_key(name):
+    """'Ángel Amores' -> ('a', 'amores'): first initial + last word, without accents."""
+    import unicodedata
+
+    s = unicodedata.normalize("NFKD", name or "").encode("ascii", "ignore").decode().lower()
+    words = re.findall(r"[a-z]+", s)
+    return (words[0][0], words[-1]) if len(words) > 1 else None
+
+
+COLLAB_NAMES = {}  # name key -> name as written in collaborators.yml
+
+
 def record(work, project_ids, collab_orcids):
     loc = work.get("primary_location") or {}
     src = loc.get("source") or {}
@@ -85,8 +97,10 @@ def record(work, project_ids, collab_orcids):
     for a in work.get("authorships") or []:
         au = a.get("author") or {}
         entry = {"name": au.get("display_name") or a.get("raw_author_name") or ""}
-        if norm_orcid(au.get("orcid")) in collab_orcids:
+        key = name_key(entry["name"])
+        if norm_orcid(au.get("orcid")) in collab_orcids or key in COLLAB_NAMES:
             entry["member"] = True
+            entry["name"] = COLLAB_NAMES.get(key, entry["name"])
         authors.append(entry)
     biblio = work.get("biblio") or {}
     return {
@@ -114,6 +128,7 @@ def main():
         p["_grants"] = [norm(g) for g in (p.get("grants") or []) if norm(g)]
     known_ids = {p["id"] for p in projects}
     collab_orcids = {norm_orcid(c.get("orcid")) for c in collaborators} - {""}
+    COLLAB_NAMES.update({name_key(c.get("name")): c.get("name") for c in collaborators if name_key(c.get("name"))})
 
     starts = [int(str(p.get("start"))[:4]) for p in projects if p.get("start")]
     since = f"{min(starts) if starts else 2000}-01-01"

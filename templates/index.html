@@ -7,11 +7,11 @@
 {% for p in projects %}
 <article class="project" id="{{ p.id }}">
   <div class="side">
-    {% if p.logo %}<img src="static/img/{{ p.logo }}" alt="{{ p.acronym }} logo">{% else %}<div class="mark" aria-hidden="true">{{ p.acronym[:2] }}</div>{% endif %}
+    {% if p.logo %}<img src="static/img/{{ p.logo }}" alt="{{ p.acronym }} logo" width="110" height="110">{% else %}<div class="mark" aria-hidden="true">{{ p.acronym[:2] }}</div>{% endif %}
     <span>{{ p.period }}</span>
   </div>
   <div>
-    <h3>{{ p.acronym }}<span class="status {{ 'on' if p.status != 'Completed' }}">{{ p.status }}</span></h3>
+    <h2 class="pname">{{ p.acronym }}<span class="status {{ 'on' if p.status != 'Completed' }}">{{ p.status }}</span></h2>
     <p class="full">{{ p.title }}</p>
     {% if p.description %}<p>{{ p.description }}</p>{% endif %}
     <dl class="facts">
@@ -21,7 +21,7 @@
       {% if p.url %}<dt>Website</dt><dd><a href="{{ p.url }}">{{ p.url }}</a></dd>{% endif %}
     </dl>
     <section class="impact" aria-label="Impact of {{ p.acronym }}">
-      <h4>Impact</h4>
+      <h3>Impact</h3>
       {% if p.n_pubs %}
       <ul class="stats">
         <li><b>{{ p.n_pubs }}</b> <span>paper{{ '' if p.n_pubs == 1 else 's' }}</span></li>

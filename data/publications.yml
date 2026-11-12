@@ -4,7 +4,8 @@
     and lines'
   authors:
   - name: Roberto Alcaraz
-  - name: Angel Amores
+  - name: Ángel Amores
+    member: true
   - name: Alejandro Villa
   - name: Marta Marcos
     member: true

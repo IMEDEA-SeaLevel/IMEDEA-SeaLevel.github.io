@@ -5,24 +5,35 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{% block title %}{{ site.title }}{% endblock %}</title>
 <meta name="description" content="{{ site.description }}">
-<link rel="icon" type="image/svg+xml" href="static/img/logo.svg">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..700&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="static/style.css">
+<link rel="canonical" href="{{ site.url }}/{{ canonical }}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{{ site.title }}">
+<meta property="og:title" content="{{ self.title() }}">
+<meta property="og:description" content="{{ site.description }}">
+<meta property="og:url" content="{{ site.url }}/{{ canonical }}">
+<meta property="og:image" content="{{ site.url }}/static/img/icon-512.png">
+<meta name="twitter:card" content="summary">
+<meta name="theme-color" content="#f4efe6" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b1b25" media="(prefers-color-scheme: dark)">
+<link rel="icon" type="image/svg+xml" href="{{ root }}static/img/logo.svg">
+<link rel="apple-touch-icon" href="{{ root }}static/img/icon-180.png">
+<link rel="preload" href="{{ root }}static/fonts/Fraunces-400-700-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="{{ root }}static/fonts/fonts.css">
+<link rel="stylesheet" href="{{ root }}static/style.css">
 </head>
 <body>
+<a class="skip" href="#main">Skip to content</a>
 <header class="top">
   <div class="wrap">
-    <a class="brand" href="./"><img src="static/img/logo.svg" alt="">{{ site.title }}</a>
+    <a class="brand" href="{{ root }}"><img src="{{ root }}static/img/logo.svg" alt="" width="40" height="40">{{ site.title }}</a>
     <nav aria-label="Main">
-      <a href="./" {% if page == 'projects' %}aria-current="page"{% endif %}>Projects</a>
-      <a href="publications.html" {% if page == 'publications' %}aria-current="page"{% endif %}>Publications</a>
-      <a href="repositories.html" {% if page == 'repositories' %}aria-current="page"{% endif %}>Repositories</a>
+      <a href="{{ root }}" {% if page == 'projects' %}aria-current="page"{% endif %}>Projects</a>
+      <a href="{{ root }}publications.html" {% if page == 'publications' %}aria-current="page"{% endif %}>Publications</a>
+      <a href="{{ root }}repositories.html" {% if page == 'repositories' %}aria-current="page"{% endif %}>Repositories</a>
     </nav>
   </div>
 </header>
-<main class="wrap">
+<main class="wrap" id="main">
 {% block main %}{% endblock %}
 </main>
 <footer>
